@@ -1,0 +1,106 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "thing_key": "Seriale"
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "Dispositivo già configurato"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "status": {
+                "name": "Stato",
+                "state": {
+                    "idle": "Inattivo",
+                    "generating_consuming_from_network": "Producendo / Consumando da rete",
+                    "generating_consuming_from_produced": "Producendo / Auto-consumando",
+                    "generating": "Producendo",
+                    "consuming_from_network": "Consumando da rete",
+                    "consuming_from_produced": "Auto-consumando"
+                },
+                "state_attributes": {
+                    "first_update": {
+                        "name": "Primo aggiornamento"
+                    },
+                    "last_update": {
+                        "name": "Ultimo aggiornamento"
+                    }
+                }
+            },
+            "power_generating": {
+                "name": "Potenza prodotta"
+            },
+            "energy_generating_today": {
+                "name": "Energia prodotta oggi"
+            },
+            "energy_generating_total": {
+                "name": "Totale energia prodotta"
+            },
+            "power_consuming": {
+                "name": "Potenza consumata"
+            },
+            "energy_consuming_today": {
+                "name": "Energia consumata oggi"
+            },
+            "energy_consuming_total": {
+                "name": "Totale energia consumata"
+            },
+            "power_autoconsuming": {
+                "name": "Autoconsuming power"
+            },
+            "energy_autoconsuming_today": {
+                "name": "Today autoconsumed energy"
+            },
+            "energy_autoconsuming_total": {
+                "name": "Total autoconsumed energy"
+            },
+            "power_charging": {
+                "name": "Charging power"
+            },
+            "energy_charging_today": {
+                "name": "Today charging energy"
+            },
+            "energy_charging_total": {
+                "name": "Total charging energy"
+            },
+            "power_discharging": {
+                "name": "Discharging power"
+            },
+            "energy_discharging_today": {
+                "name": "Today discharging energy"
+            },
+            "energy_discharging_total": {
+                "name": "Total discharging energy"
+            },
+            "power_importing": {
+                "name": "Importing power"
+            },
+            "energy_importing_today": {
+                "name": "Today importing energy"
+            },
+            "energy_importing_total": {
+                "name": "Total importing energy"
+            },
+            "power_exporting": {
+                "name": "Exporting power"
+            },
+            "energy_exporting_today": {
+                "name": "Today exporting energy"
+            },
+            "energy_exporting_total": {
+                "name": "Total exporting energy"
+            },
+            "battery_soc": {
+                "name": "Battery"
+            },
+            "battery_soc_2": {
+                "name": "Battery 2"
+            }
+        }
+    }
+}

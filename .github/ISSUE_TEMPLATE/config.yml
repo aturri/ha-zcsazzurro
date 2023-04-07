@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support issue
+    url: https://github.com/aturri/ha-zcsazzurro/discussions/categories/q-a
+    about: Questions & Answers
