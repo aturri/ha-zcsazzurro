@@ -1,4 +1,4 @@
-src_dir := custom_components/ha-zcsazzurro
+src_dir := custom_components/zcsazzurro
 
 bump:
 	bump2version --allow-dirty patch $(src_dir)/const.py $(src_dir)/manifest.json
