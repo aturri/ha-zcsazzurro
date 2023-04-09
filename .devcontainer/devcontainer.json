@@ -38,8 +38,7 @@
 	},
 	"mounts": [
 		// Enable a persistent configuration directory
-		// Create zcsazzurro_config directory under your home or under the 
-		//  folder specified by env variable HA_HOME, then rebuild container
-		"source=/Users/andrea/Workspaces/zcsazzurro_config,target=/config,type=bind"
+		// Create zcsazzurro_config directory under folder specified by env variable HA_HOME, then rebuild container
+		"source=${localEnv:HA_HOME}/zcsazzurro_config,target=/config,type=bind"
 	]
 }
