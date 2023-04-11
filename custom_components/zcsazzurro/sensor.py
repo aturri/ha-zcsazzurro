@@ -20,6 +20,7 @@ from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
+from homeassistant.util import dt
 
 from . import get_coordinator
 from .const import (
@@ -378,18 +379,38 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
+        # status sensors have a special function based on observed values
         if (
             self.entity_description.data_tag is None
             and self.entity_description.key == "status"
         ):
             return self._read_status()
 
+        # return None when there is not the required key
         if (
             self.coordinator.data[self._thing_key].get(self.entity_description.data_tag)
             is None
         ):
             return None
 
+        # on total increasing sensors, force value to 0 at start of local day until first value is shown
+        # by ZCS device to avoid messing up energy stats
+        if (
+            self.entity_description.device_class == SensorDeviceClass.ENERGY
+            and self.entity_description.state_class == SensorStateClass.TOTAL_INCREASING
+            and self._read_last_update() is not None
+        ):
+            last_update = dt.parse_datetime(self._read_last_update())
+            start_of_day = dt.start_of_local_day()
+            if last_update is not None and start_of_day > last_update:
+                _LOGGER.debug(
+                    "Last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
+                    last_update,
+                    start_of_day,
+                )
+                return 0
+
+        # by default, return raw value from the coordinator data
         return self.coordinator.data[self._thing_key].get(
             self.entity_description.data_tag
         )
@@ -410,14 +431,10 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             attr = self.entity_description.extra_attributes
 
             if "last_update" in self.entity_description.extra_attributes:
-                attr["last_update"] = self.coordinator.data[self._thing_key][
-                    "lastUpdate"
-                ]
+                attr["last_update"] = self._read_last_update()
 
             if "first_update" in self.entity_description.extra_attributes:
-                attr["first_update"] = self.coordinator.data[self._thing_key][
-                    "thingFind"
-                ]
+                attr["first_update"] = self._read_first_update()
 
         attr["serial"] = self._thing_key
 
@@ -450,3 +467,9 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             return "consuming_from_produced"
 
         return "idle"
+
+    def _read_last_update(self):
+        return self.coordinator.data[self._thing_key].get("lastUpdate")
+
+    def _read_first_update(self):
+        return self.coordinator.data[self._thing_key].get("thingFind")
