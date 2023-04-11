@@ -6,8 +6,6 @@ All supported ZCS Azzurro inverters / energy meters will show a status sensor an
 
 This integration lets you configure an authentication to ZCS Azzurro portal and then you can add inverters through integration page on frontend.
 
-Read more on design philosophy etc in the [Wiki](https://github.com/aturri/ha-zcsazzurro/wiki).
-
 ## Installation
 
 Make sure you have the asked ZCS Azzurro credentials to use this integration. Contact their support and they will give you a client code and an auth key.
@@ -35,10 +33,6 @@ zcsazzurro:
 After modifying this, restart Home Assistant and go to `Integrations` > `Add Integration` and select `ZCS Azzurro`. Sometimes you must refresh the browser cache to find the integration.
 
 Pick serial number of your inverter / energy meter and insert it to complete the config flow: a new device with serial number inserted will appear. Add a new `ZCS Azzurro` config entry for each device you want to add.
-
-### Wiki - Documentation
-
-Documentation can be found in the [wiki](https://github.com/aturri/ha-zcsazzurro/wiki)
 
 ### Development
 
