@@ -1,30 +1,27 @@
 """The ZCS Azzurro integration."""
 from __future__ import annotations
-import logging
 
 from datetime import timedelta
-import flatdict
+import logging
 
+import flatdict
 from homeassistant.components import persistent_notification
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET, CONF_NAME, Platform
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
-from homeassistant.helpers.update_coordinator import (
-    DataUpdateCoordinator,
-    UpdateFailed,
-)
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 import voluptuous as vol
 
 from .api import ZCSPortal
 from .const import (
     API,
     API_POLL_INTERVAL,
-    COORDINATOR,
     CONF_AUTH_KEY,
     CONF_CLIENT_CODE,
     CONF_THING_KEY,
+    COORDINATOR,
     DOMAIN,
     MANUFACTURER,
 )

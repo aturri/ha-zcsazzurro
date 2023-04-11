@@ -1,10 +1,10 @@
 """Config flow for ZCS Azzurro."""
 from __future__ import annotations
 
-from homeassistant.config_entries import ConfigFlow, CONN_CLASS_CLOUD_POLL
+from homeassistant.config_entries import CONN_CLASS_CLOUD_POLL, ConfigFlow
 import voluptuous as vol
 
-from .const import DOMAIN, CONF_THING_KEY
+from .const import CONF_THING_KEY, DOMAIN
 
 
 class ZCSAzzurroConfigFlow(ConfigFlow, domain=DOMAIN):
