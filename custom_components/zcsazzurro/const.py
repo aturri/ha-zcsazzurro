@@ -1,7 +1,7 @@
 """Constants for the ZCS Azzurro integration."""
 
 DOMAIN = "zcsazzurro"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 API_READ_TIMEOUT = 30
 API_POLL_INTERVAL = 300
 MANUFACTURER = "ZCS Azzurro"
