@@ -16,7 +16,7 @@
             "status": {
                 "name": "Stato",
                 "state": {
-                    "idle": "Inattivo",
+                    "off": "Inattivo",
                     "generating_consuming_from_network": "Producendo / Consumando da rete",
                     "generating_consuming_from_produced": "Producendo / Auto-consumando",
                     "generating": "Producendo",

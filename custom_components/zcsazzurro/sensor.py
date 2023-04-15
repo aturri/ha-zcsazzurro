@@ -463,7 +463,7 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         if is_autoconsuming:
             return "consuming_from_produced"
 
-        return "idle"
+        return "off"
 
     def _read_last_update(self):
         return self.coordinator.data[self._thing_key].get("lastUpdate")

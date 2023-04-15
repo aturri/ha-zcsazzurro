@@ -16,7 +16,7 @@
             "status": {
                 "name": "Status",
                 "state": {
-                    "idle": "Idle",
+                    "off": "Idle",
                     "generating_consuming_from_network": "Generating / Consuming from network",
                     "generating_consuming_from_produced": "Generating / Auto-consuming",
                     "generating": "Generating",
