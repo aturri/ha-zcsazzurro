@@ -23,7 +23,7 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.util import dt
 
 from . import get_coordinator
-from .const import DOMAIN, MANUFACTURER
+from .const import DOMAIN, MANUFACTURER, STATUS_ICON
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -436,6 +436,19 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         attr["serial"] = self._thing_key
 
         return attr
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon to use in the frontend, if any."""
+        if (
+            self.entity_description.data_tag is None
+            and self.entity_description.key == "status"
+        ):
+            status_icon = STATUS_ICON.get(self._read_status())
+            if status_icon is not None:
+                return status_icon
+
+        return super().icon
 
     def _read_status(self):
         power_generating = self.coordinator.data[self._thing_key].get("powerGenerating")

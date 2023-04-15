@@ -13,3 +13,11 @@ CONF_CLIENT_CODE = "client_code"
 
 API = "api"
 COORDINATOR = "coordinator"
+
+STATUS_ICON = {
+    "generating_consuming_from_network": "mdi:solar-power-variant-outline",
+    "generating_consuming_from_produced": "mdi:solar-power-variant-outline",
+    "generating": "mdi:solar-power-variant-outline",
+    "consuming_from_network": "mdi:transmission-tower-export",
+    "consuming_from_produced": "mdi:home-battery-outline",
+}
