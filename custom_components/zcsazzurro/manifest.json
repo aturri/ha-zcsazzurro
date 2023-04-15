@@ -20,6 +20,6 @@
     "flatdict==4.0.1"
   ],
   "ssdp": [],
-  "version": "0.0.3",
+  "version": "0.0.4",
   "zeroconf": []
 }
