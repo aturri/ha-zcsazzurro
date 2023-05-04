@@ -2,6 +2,7 @@
 import json
 import logging
 
+from homeassistant.components.rest.const import DEFAULT_SSL_CIPHER_LIST
 from homeassistant.components.rest.data import RestData
 from homeassistant.core import HomeAssistant
 
@@ -71,6 +72,7 @@ class ZCSPortal:
             None,
             string_payload,
             False,
+            DEFAULT_SSL_CIPHER_LIST,
             timeout,
         )
         await rest.async_update()
