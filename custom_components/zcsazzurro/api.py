@@ -42,15 +42,20 @@ class ZCSPortal:
             },
         }
 
-        result = await self._fetch_data(payload)
+        api_result = await self._fetch_data(payload)
+        thing_result = {}
 
-        if result is not None:
+        if api_result is not None:
             try:
-                return result["realtimeData"]["params"]["value"][0]
+                thing_result = api_result["realtimeData"]["params"]["value"][0][
+                    self._thing_key
+                ]
             except KeyError:
-                _LOGGER.error("Unable to read result from ZCS Azzurro portal")
+                _LOGGER.warning("Unable to read result from ZCS Azzurro portal")
 
-        return {}
+        result = {}
+        result[self._thing_key] = thing_result
+        return result
 
     async def _fetch_data(self, payload: dict, timeout: int = API_READ_TIMEOUT):
         """Fetch data from ZCS Azzurro portal."""
@@ -78,12 +83,12 @@ class ZCSPortal:
         await rest.async_update()
 
         if rest.data is None:
-            _LOGGER.error("Unable to fetch data from ZCS Azzurro portal")
+            _LOGGER.warning("Unable to fetch data from ZCS Azzurro portal")
             return None
 
         try:
             return json.loads(rest.data)
         except json.decoder.JSONDecodeError:
-            _LOGGER.error("Unable to parse result from ZCS Azzurro portal")
+            _LOGGER.warning("Unable to parse result from ZCS Azzurro portal")
 
         return None
