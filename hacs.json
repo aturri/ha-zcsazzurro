@@ -1,6 +1,6 @@
 {
   "name": "ZCS Azzurro",
-  "homeassistant": "2023.4.0",
+  "homeassistant": "2023.5.0",
   "zip_release": true,
   "filename": "zcsazzurro.zip",
   "render_readme": true
