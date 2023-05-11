@@ -17,6 +17,7 @@
                 "name": "Status",
                 "state": {
                     "off": "Idle",
+                    "not_connected": "Not connected",
                     "generating_consuming_from_network": "Generating / Consuming from network",
                     "generating_consuming_from_produced": "Generating / Auto-consuming",
                     "generating": "Generating",

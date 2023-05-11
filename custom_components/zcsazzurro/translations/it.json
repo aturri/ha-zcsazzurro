@@ -17,6 +17,7 @@
                 "name": "Stato",
                 "state": {
                     "off": "Inattivo",
+                    "not_connected": "Non connesso",
                     "generating_consuming_from_network": "Producendo / Consumando da rete",
                     "generating_consuming_from_produced": "Producendo / Auto-consumando",
                     "generating": "Producendo",

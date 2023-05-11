@@ -457,6 +457,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             "powerAutoconsuming"
         )
 
+        is_connected = (
+            power_generating is not None
+            or power_consuming is not None
+            or power_autoconsuming is not None
+        )
         is_generating = power_generating is not None and power_generating > 0
         is_consuming = power_consuming is not None and power_consuming > 0
         is_autoconsuming = power_autoconsuming is not None and power_autoconsuming > 0
@@ -475,6 +480,9 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
 
         if is_autoconsuming:
             return "consuming_from_produced"
+
+        if not is_connected:
+            return "not_connected"
 
         return "off"
 
