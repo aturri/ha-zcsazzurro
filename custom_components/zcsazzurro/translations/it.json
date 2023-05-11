@@ -52,55 +52,55 @@
                 "name": "Totale energia consumata"
             },
             "power_autoconsuming": {
-                "name": "Autoconsuming power"
+                "name": "Potenza autoconsumata"
             },
             "energy_autoconsuming_today": {
-                "name": "Today autoconsumed energy"
+                "name": "Energia autoconsumata oggi"
             },
             "energy_autoconsuming_total": {
-                "name": "Total autoconsumed energy"
+                "name": "Totale enegia autoconsumata"
             },
             "power_charging": {
-                "name": "Charging power"
+                "name": "Potenza carica"
             },
             "energy_charging_today": {
-                "name": "Today charging energy"
+                "name": "Energia carica oggi"
             },
             "energy_charging_total": {
-                "name": "Total charging energy"
+                "name": "Totale energia carica"
             },
             "power_discharging": {
-                "name": "Discharging power"
+                "name": "Potenza scarica"
             },
             "energy_discharging_today": {
-                "name": "Today discharging energy"
+                "name": "Energia scarica oggi"
             },
             "energy_discharging_total": {
-                "name": "Total discharging energy"
+                "name": "Totale energia scarica"
             },
             "power_importing": {
-                "name": "Importing power"
+                "name": "Potenza importata"
             },
             "energy_importing_today": {
-                "name": "Today importing energy"
+                "name": "Energia importata oggi"
             },
             "energy_importing_total": {
-                "name": "Total importing energy"
+                "name": "Totale energia importata"
             },
             "power_exporting": {
-                "name": "Exporting power"
+                "name": "Potenza esportata"
             },
             "energy_exporting_today": {
-                "name": "Today exporting energy"
+                "name": "Energia esportata oggi"
             },
             "energy_exporting_total": {
-                "name": "Total exporting energy"
+                "name": "Totale energia esportata"
             },
             "battery_soc": {
-                "name": "Battery"
+                "name": "Batteria"
             },
             "battery_soc_2": {
-                "name": "Battery 2"
+                "name": "Batteria 2"
             }
         }
     }
