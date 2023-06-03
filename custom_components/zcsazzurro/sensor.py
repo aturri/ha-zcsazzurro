@@ -366,7 +366,8 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         self.entity_description = description
         self._attr_has_entity_name = True
         self._attr_unique_id = f"{self.entity_description.key}-{self._thing_key}"
-        _LOGGER.debug("init sensor %s", self._attr_unique_id)
+        self._redacted_unique_id = f"{self.entity_description.key}-{self._thing_key[:3]}*****{self._thing_key[-3:]}"
+        _LOGGER.debug("init sensor %s", self._redacted_unique_id)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, self._thing_key)},
             name=self._thing_key,
@@ -401,7 +402,8 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             start_of_day = dt.start_of_local_day()
             if last_update is not None and start_of_day > last_update:
                 _LOGGER.debug(
-                    "Last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
+                    "%s: last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
+                    self._redacted_unique_id,
                     last_update,
                     start_of_day,
                 )

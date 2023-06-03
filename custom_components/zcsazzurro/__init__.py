@@ -117,7 +117,10 @@ async def get_coordinator(
         except TypeError as ex:
             raise UpdateFailed(ex) from ex
 
-        _LOGGER.debug("Data: %s", flat_result)
+        for thing_key, data in flat_result.items():
+            redacted_thing_key = f"{thing_key[:3]}*****{thing_key[-3:]}"
+            _LOGGER.debug("Data for %s: %s", redacted_thing_key, data)
+
         return flat_result
 
     hass.data[DOMAIN][entry.entry_id][COORDINATOR] = DataUpdateCoordinator(
