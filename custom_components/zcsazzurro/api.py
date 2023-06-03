@@ -89,6 +89,8 @@ class ZCSPortal:
         try:
             return json.loads(rest.data)
         except json.decoder.JSONDecodeError:
-            _LOGGER.warning("Unable to parse result from ZCS Azzurro portal")
+            _LOGGER.warning(
+                "Unable to parse result from ZCS Azzurro portal: %s", rest.data
+            )
 
         return None
