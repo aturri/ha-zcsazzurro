@@ -20,7 +20,7 @@ from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
-from homeassistant.util import dt
+from homeassistant.util import dt as dt_util
 
 from . import get_coordinator
 from .const import DOMAIN, MANUFACTURER, STATUS_ICON
@@ -398,8 +398,8 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             and self.entity_description.state_class == SensorStateClass.TOTAL_INCREASING
             and self._read_last_update() is not None
         ):
-            last_update = dt.parse_datetime(self._read_last_update())
-            start_of_day = dt.start_of_local_day()
+            last_update = dt_util.parse_datetime(self._read_last_update())
+            start_of_day = dt_util.start_of_local_day()
             if last_update is not None and start_of_day > last_update:
                 _LOGGER.debug(
                     "%s: last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
@@ -425,6 +425,7 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self):
+        """Return extra state attributes of the entity."""
         attr = {}
         if self.entity_description.extra_attributes is not None:
             attr = self.entity_description.extra_attributes

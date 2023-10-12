@@ -5,6 +5,8 @@ from datetime import timedelta
 import logging
 
 import flatdict
+import voluptuous as vol
+
 from homeassistant.components import persistent_notification
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -12,7 +14,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-import voluptuous as vol
 
 from .api import ZCSPortal
 from .const import (
