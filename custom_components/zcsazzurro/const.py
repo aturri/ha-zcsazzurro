@@ -3,7 +3,7 @@
 DOMAIN = "zcsazzurro"
 VERSION = "0.0.8"
 API_READ_TIMEOUT = 30
-API_POLL_INTERVAL = 300
+API_POLL_INTERVAL = 300  # Fetch data every 5 min
 MANUFACTURER = "ZCS Azzurro"
 
 # Conf keys
