@@ -39,32 +39,44 @@ Pick serial number of your inverter / energy meter and insert it to complete the
 There are many ways to setup a development environment.
 
 #### Dev Container
-Use VS Code Dev Container. You need to have Docker installed.
 
-1. Clone repository
+The recommended option is to use the VS Code Dev Container. You need to have Docker installed.
 
-    ```console
-    $ git clone https://github.com/{your_user}/ha-zcsazzurro
-    ```
-2. Open the repository in VS Code
+1. For best performance, clone the repo in a named volume.
+1. Open a new, empty window in VS Code.
+1. Press `Cmd`+`Shift`+`P` and select `Dev Containers: Clone Respository in Named Container Volume`
+1. Fill in your repo and your chosen names at the prompts
+1. Wait for the container to be built
+1. You can customize `config/configuration.yaml` by adding your credentials, as required before adding the integration
 
-    ```console
-    $ code ha-zcsazzurro # or code-insiders ha-zcsazzurro
-    ```
-3. VS Code will ask to reopen the folder in a container
-    - If not, press `Cmd`/`Ctrl`+`Shift`+`P` and select `Dev Containers: Reopen in Dev Container`.
-4. Wait for the container to be built.
-5. Add a file `secrets.yaml` into folder `.devcontainer` with your credentials:
-    ```
-    zcs.authkey: xxx
-    zcs.clientcode: xxx
-    ```
-6. Press `Cmd`/`Ctrl`+`Shift`+`P` and select `Tasks: Run Task` > `Run Home Assistant on port 9123`.
-7. Wait for Home Assistant to start and go to http://localhost:9123/.
-8. Walk through the Home Assistant first-launch UI.
-9. Go to http://localhost:9123/config/integrations, click `Add Integration` and add the `ZCS Azzurro` integration.
-10. To debug, press `F5` to attach to the Home Assistant running in the container.
-11. You can enable a persistent (survives rebuild of container) config directory for Home Assistant by uncommenting the mounts statement in devcontainer.json and rebuild the container.
+1. Press `Cmd`+`Shift`+`P` and select `Tasks: Run Task` > `Run Home Assistant on port 9123`.
+1. Wait for Home Assistant to start and go to http://localhost:9123/.
+1. Walk through the Home Assistant first-launch UI.
+1. Go to http://localhost:9123/config/integrations, click `Add Integration` and add the `ZCS Azzurro` integration.
+1. To debug, press `F5` to attach to the Home Assistant running in the container.
+1. Your configuration.yaml will be persistent (survives rebuild of container).
+
+#### Without a Dev Container
+
+Alternatively, you can run Home Assistant directly on your machine/WSL2. The following procedure works fine in the hands of the maintainer developing with VS Code on WSL2/Windows.
+
+- Make sure you have at least python3.11 installed on your WSL.
+- Create a fork on github
+
+```
+$ git clone https://github.com/{your_user}/ha-zcsazzurro
+$ cd ha-zcsazzurro
+$ make install_dev
+```
+
+Home Assistant has defined a code style. Run `make lint` before pushing your changes to align with the peferred style.
+
+There are many ways to test the integration, three examples are:
+
+- run Home Assistant in the development container as described above
+
+- copy all files in `custom_comonents/ha-zcsazzurro` to `custom_components/ha-zcsazzurro` in your HA configuration directory
+- mount `custom_components/ha-zcsazzurro` into a HA development container
 
 ### Debugging and filing issues
 

@@ -23,6 +23,13 @@ echo "
 # debugpy:
 " >> config/configuration.yaml
 fi
+if ! grep -R "^zcsazzurro:" config/configuration.yaml >> /dev/null;then
+echo "
+zcsazzurro:
+  auth_key: "FIXME provide your auth key"
+  client_code: "FIXME provide your client code"
+" >> config/configuration.yaml
+fi
 
 
 # Set the path to custom_components
