@@ -1,5 +1,4 @@
 """API for ZCS Azzurro bound to Home Assistant OAuth."""
-import asyncio
 import json
 import logging
 
@@ -82,21 +81,10 @@ class ZCSPortal:
             DEFAULT_SSL_CIPHER_LIST,
             timeout,
         )
-
-        retries = 1  # First try below
         await rest.async_update()
-        max_retries = 3
-
-        while rest.data is None and retries < max_retries:
-            _LOGGER.warning(
-                "Unable to fetch data from ZCS Azzurro portal... Retry in 5 seconds"
-            )
-            await asyncio.sleep(5)
-            await rest.async_update()
-            retries += 1
 
         if rest.data is None:
-            _LOGGER.error("Unable to fetch data from ZCS Azzurro portal")
+            _LOGGER.warning("Unable to fetch data from ZCS Azzurro portal")
             return None
 
         try:
