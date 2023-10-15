@@ -371,6 +371,7 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         self._redacted_unique_id = f"{self.entity_description.key}-{self._thing_key[:3]}*****{self._thing_key[-3:]}"
         self._cached_data = None
         self._cached_counter = 0
+        self._max_value = 0
         _LOGGER.debug("init sensor %s", self._redacted_unique_id)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, self._thing_key)},
@@ -413,7 +414,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
                     last_update,
                     start_of_day,
                 )
+                self._max_value = 0
                 return 0
+            if value > self._max_value:
+                self._max_value = value
+            return self._max_value
 
         # by default, return raw value from the coordinator data
         return value
