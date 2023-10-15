@@ -64,9 +64,9 @@ class ZCSPortal:
         elif api_result[0] in range(500, 600):
             use_cached_result = True
 
+        thing_result["_use_cached_result"] = use_cached_result
         result = {}
         result[self._thing_key] = thing_result
-        result["_use_cached_result"] = use_cached_result
         return result
 
     async def _fetch_data(self, payload: dict, timeout: int = API_READ_TIMEOUT):

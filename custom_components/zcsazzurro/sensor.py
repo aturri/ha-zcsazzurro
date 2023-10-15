@@ -26,6 +26,8 @@ from . import get_coordinator
 from .const import DOMAIN, MANUFACTURER, STATUS_ICON
 
 _LOGGER = logging.getLogger(__name__)
+API_USE_CACHED_FLAG = "_use_cached_result"
+CACHED_LIMIT = 5
 
 
 @dataclass
@@ -367,6 +369,8 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         self._attr_has_entity_name = True
         self._attr_unique_id = f"{self.entity_description.key}-{self._thing_key}"
         self._redacted_unique_id = f"{self.entity_description.key}-{self._thing_key[:3]}*****{self._thing_key[-3:]}"
+        self._cached_data = None
+        self._cached_counter = 0
         _LOGGER.debug("init sensor %s", self._redacted_unique_id)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, self._thing_key)},
@@ -378,18 +382,20 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
     def native_value(self):
         """Return the state of the sensor."""
         # status sensors have a special function based on observed values
-        if (
-            self.entity_description.data_tag is None
-            and self.entity_description.key == "status"
-        ):
-            return self._read_status()
 
-        # return None when there is not the required key
-        if (
-            self.coordinator.data[self._thing_key].get(self.entity_description.data_tag)
-            is None
-        ):
+        value = self._read_api_value()
+        use_cached_result = self._use_cached_value()
+
+        # return None/cached result when there is not the required key
+        if value is None and use_cached_result:
+            self._cached_counter = self._cached_counter + 1
+            return self._cached_data
+        elif value is None:
             return None
+
+        # cache data for next API update, reset counter
+        self._cached_data = value
+        self._cached_counter = 0
 
         # on total increasing sensors, force value to 0 at start of local day until first value is shown
         # by ZCS device to avoid messing up energy stats
@@ -410,9 +416,14 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
                 return 0
 
         # by default, return raw value from the coordinator data
-        return self.coordinator.data[self._thing_key].get(
-            self.entity_description.data_tag
-        )
+        return value
+
+    @property
+    def assumed_state(self) -> bool:
+        """Return True if unable to access real state of the entity."""
+        value = self._read_api_value()
+        use_cached_result = self._use_cached_value()
+        return value is None and use_cached_result
 
     @property
     def available(self):
@@ -453,7 +464,29 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
 
         return super().icon
 
+    def _read_api_value(self):
+        return (
+            self._read_status()
+            if (
+                self.entity_description.data_tag is None
+                and self.entity_description.key == "status"
+            )
+            else self.coordinator.data[self._thing_key].get(
+                self.entity_description.data_tag
+            )
+        )
+
+    def _use_cached_value(self):
+        return (
+            self.coordinator.data[self._thing_key].get(API_USE_CACHED_FLAG)
+            and self._cached_counter < CACHED_LIMIT
+            and self._cached_data is not None
+        )
+
     def _read_status(self):
+        if self.coordinator.data[self._thing_key].get("thingFind") is None:
+            return None
+
         power_generating = self.coordinator.data[self._thing_key].get("powerGenerating")
         power_consuming = self.coordinator.data[self._thing_key].get("powerConsuming")
         power_autoconsuming = self.coordinator.data[self._thing_key].get(
