@@ -501,8 +501,10 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
 
     def _is_out_of_date(self):
         last_update = dt_util.parse_datetime(self._read_last_update())
-        return last_update is not None and (
-            self._last_update is None or last_update < self._last_update
+        return (
+            last_update is not None
+            and self._last_update is not None
+            and last_update < self._last_update
         )
 
     def _read_status(self):
