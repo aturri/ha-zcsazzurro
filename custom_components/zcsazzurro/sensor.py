@@ -371,7 +371,8 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         self._redacted_unique_id = f"{self.entity_description.key}-{self._thing_key[:3]}*****{self._thing_key[-3:]}"
         self._cached_data = None
         self._cached_counter = 0
-        self._max_value = 0
+        self._cached_attrs = {}
+        self._last_update = None
         _LOGGER.debug("init sensor %s", self._redacted_unique_id)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, self._thing_key)},
@@ -382,7 +383,6 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        # status sensors have a special function based on observed values
 
         value = self._read_api_value()
         use_cached_result = self._use_cached_value()
@@ -394,31 +394,16 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         elif value is None:
             return None
 
-        # cache data for next API update, reset counter
-        self._cached_data = value
+        # reset cache data counter after error handling (no value from API)
         self._cached_counter = 0
 
-        # on total increasing sensors, force value to 0 at start of local day until first value is shown
-        # by ZCS device to avoid messing up energy stats
-        if (
-            self.entity_description.device_class == SensorDeviceClass.ENERGY
-            and self.entity_description.state_class == SensorStateClass.TOTAL_INCREASING
-            and self._read_last_update() is not None
-        ):
-            last_update = dt_util.parse_datetime(self._read_last_update())
-            start_of_day = dt_util.start_of_local_day()
-            if last_update is not None and start_of_day > last_update:
-                _LOGGER.debug(
-                    "%s: last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
-                    self._redacted_unique_id,
-                    last_update,
-                    start_of_day,
-                )
-                self._max_value = 0
-                return 0
-            if value > self._max_value:
-                self._max_value = value
-            return self._max_value
+        # return cached result when last update is not the last observed update
+        if self._is_out_of_date():
+            return self._cached_data
+
+        # cache data for next API update
+        self._cached_data = value
+        self._last_update = dt_util.parse_datetime(self._read_last_update())
 
         # by default, return raw value from the coordinator data
         return value
@@ -442,6 +427,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         """Return extra state attributes of the entity."""
+
+        # return cached result when last update is not the last observed update
+        if self._is_out_of_date():
+            return self._cached_attrs
+
         attr = {}
         if self.entity_description.extra_attributes is not None:
             attr = self.entity_description.extra_attributes
@@ -453,6 +443,7 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
                 attr["first_update"] = self._read_first_update()
 
         attr["serial"] = self._thing_key
+        self._cached_attrs = attr
 
         return attr
 
@@ -470,22 +461,48 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         return super().icon
 
     def _read_api_value(self):
-        return (
-            self._read_status()
-            if (
-                self.entity_description.data_tag is None
-                and self.entity_description.key == "status"
-            )
-            else self.coordinator.data[self._thing_key].get(
-                self.entity_description.data_tag
-            )
+        # status sensors have a special function based on observed values
+        if (
+            self.entity_description.data_tag is None
+            and self.entity_description.key == "status"
+        ):
+            return self._read_status()
+
+        value = self.coordinator.data[self._thing_key].get(
+            self.entity_description.data_tag
         )
+
+        # on total increasing sensors, force value to 0 at start of local day until first value is shown
+        # by ZCS device to avoid messing up energy stats
+        if (
+            self.entity_description.device_class == SensorDeviceClass.ENERGY
+            and self.entity_description.state_class == SensorStateClass.TOTAL_INCREASING
+            and self._read_last_update() is not None
+        ):
+            last_update = dt_util.parse_datetime(self._read_last_update())
+            start_of_day = dt_util.start_of_local_day()
+            if last_update is not None and start_of_day > last_update:
+                _LOGGER.debug(
+                    "%s: last seen ZCS device at %s, start of day is at %s, forcing energy measurement to 0 to reset cycle",
+                    self._redacted_unique_id,
+                    last_update,
+                    start_of_day,
+                )
+                return 0
+
+        return value
 
     def _use_cached_value(self):
         return (
             self.coordinator.data[self._thing_key].get(API_USE_CACHED_FLAG)
             and self._cached_counter < CACHED_LIMIT
             and self._cached_data is not None
+        )
+
+    def _is_out_of_date(self):
+        last_update = dt_util.parse_datetime(self._read_last_update())
+        return last_update is not None and (
+            self._last_update is None or last_update < self._last_update
         )
 
     def _read_status(self):
