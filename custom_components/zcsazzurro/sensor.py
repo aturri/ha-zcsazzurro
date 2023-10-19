@@ -403,7 +403,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
 
         # cache data for next API update
         self._cached_data = value
-        self._last_update = dt_util.parse_datetime(self._read_last_update())
+        self._last_update = (
+            None
+            if self._read_last_update() is None
+            else dt_util.parse_datetime(self._read_last_update())
+        )
 
         # by default, return raw value from the coordinator data
         return value
@@ -479,7 +483,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
             and self.entity_description.state_class == SensorStateClass.TOTAL_INCREASING
             and self._read_last_update() is not None
         ):
-            last_update = dt_util.parse_datetime(self._read_last_update())
+            last_update = (
+                None
+                if self._read_last_update() is None
+                else dt_util.parse_datetime(self._read_last_update())
+            )
             start_of_day = dt_util.start_of_local_day()
             if last_update is not None and start_of_day > last_update:
                 _LOGGER.debug(
@@ -500,7 +508,11 @@ class ZCSSensor(CoordinatorEntity, SensorEntity):
         )
 
     def _is_out_of_date(self):
-        last_update = dt_util.parse_datetime(self._read_last_update())
+        last_update = (
+            None
+            if self._read_last_update() is None
+            else dt_util.parse_datetime(self._read_last_update())
+        )
         return (
             last_update is not None
             and self._last_update is not None
