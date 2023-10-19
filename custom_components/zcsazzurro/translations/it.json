@@ -1,107 +1,119 @@
 {
-    "config": {
-        "step": {
-            "user": {
-                "data": {
-                    "thing_key": "Seriale"
-                }
-            }
-        },
-        "abort": {
-            "already_configured": "Dispositivo già configurato"
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "thing_key": "Seriale"
         }
+      }
     },
-    "entity": {
-        "sensor": {
-            "status": {
-                "name": "Stato",
-                "state": {
-                    "off": "Inattivo",
-                    "not_connected": "Non connesso",
-                    "generating_consuming_from_network": "Producendo / Consumando da rete",
-                    "generating_consuming_from_produced": "Producendo / Auto-consumando",
-                    "generating": "Producendo",
-                    "consuming_from_network": "Consumando da rete",
-                    "consuming_from_produced": "Auto-consumando"
-                },
-                "state_attributes": {
-                    "first_update": {
-                        "name": "Primo aggiornamento"
-                    },
-                    "last_update": {
-                        "name": "Ultimo aggiornamento"
-                    }
-                }
-            },
-            "power_generating": {
-                "name": "Potenza prodotta"
-            },
-            "energy_generating_today": {
-                "name": "Energia prodotta oggi"
-            },
-            "energy_generating_total": {
-                "name": "Totale energia prodotta"
-            },
-            "power_consuming": {
-                "name": "Potenza consumata"
-            },
-            "energy_consuming_today": {
-                "name": "Energia consumata oggi"
-            },
-            "energy_consuming_total": {
-                "name": "Totale energia consumata"
-            },
-            "power_autoconsuming": {
-                "name": "Potenza autoconsumata"
-            },
-            "energy_autoconsuming_today": {
-                "name": "Energia autoconsumata oggi"
-            },
-            "energy_autoconsuming_total": {
-                "name": "Totale enegia autoconsumata"
-            },
-            "power_charging": {
-                "name": "Potenza carica"
-            },
-            "energy_charging_today": {
-                "name": "Energia carica oggi"
-            },
-            "energy_charging_total": {
-                "name": "Totale energia carica"
-            },
-            "power_discharging": {
-                "name": "Potenza scarica"
-            },
-            "energy_discharging_today": {
-                "name": "Energia scarica oggi"
-            },
-            "energy_discharging_total": {
-                "name": "Totale energia scarica"
-            },
-            "power_importing": {
-                "name": "Potenza importata"
-            },
-            "energy_importing_today": {
-                "name": "Energia importata oggi"
-            },
-            "energy_importing_total": {
-                "name": "Totale energia importata"
-            },
-            "power_exporting": {
-                "name": "Potenza esportata"
-            },
-            "energy_exporting_today": {
-                "name": "Energia esportata oggi"
-            },
-            "energy_exporting_total": {
-                "name": "Totale energia esportata"
-            },
-            "battery_soc": {
-                "name": "Batteria"
-            },
-            "battery_soc_2": {
-                "name": "Batteria 2"
-            }
-        }
+    "abort": {
+      "already_configured": "Dispositivo già configurato"
     }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Stato",
+        "state": {
+          "off": "Inattivo",
+          "not_connected": "Non connesso",
+          "generating_consuming_from_network": "Producendo / Consumando da rete",
+          "generating_consuming_from_produced": "Producendo / Auto-consumando",
+          "generating": "Producendo",
+          "consuming_from_network": "Consumando da rete",
+          "consuming_from_produced": "Auto-consumando"
+        },
+        "state_attributes": {
+          "first_update": {
+            "name": "Primo aggiornamento"
+          },
+          "last_update": {
+            "name": "Ultimo aggiornamento"
+          }
+        }
+      },
+      "power_generating": {
+        "name": "Potenza prodotta"
+      },
+      "energy_generating_today": {
+        "name": "Energia prodotta oggi"
+      },
+      "energy_generating_total": {
+        "name": "Totale energia prodotta"
+      },
+      "power_consuming": {
+        "name": "Potenza consumata"
+      },
+      "energy_consuming_today": {
+        "name": "Energia consumata oggi"
+      },
+      "energy_consuming_total": {
+        "name": "Totale energia consumata"
+      },
+      "power_autoconsuming": {
+        "name": "Potenza autoconsumata"
+      },
+      "energy_autoconsuming_today": {
+        "name": "Energia autoconsumata oggi"
+      },
+      "energy_autoconsuming_total": {
+        "name": "Totale enegia autoconsumata"
+      },
+      "power_charging": {
+        "name": "Potenza carica"
+      },
+      "energy_charging_today": {
+        "name": "Energia carica oggi"
+      },
+      "energy_charging_total": {
+        "name": "Totale energia carica"
+      },
+      "power_discharging": {
+        "name": "Potenza scarica"
+      },
+      "energy_discharging_today": {
+        "name": "Energia scarica oggi"
+      },
+      "energy_discharging_total": {
+        "name": "Totale energia scarica"
+      },
+      "power_importing": {
+        "name": "Potenza importata"
+      },
+      "energy_importing_today": {
+        "name": "Energia importata oggi"
+      },
+      "energy_importing_total": {
+        "name": "Totale energia importata"
+      },
+      "power_exporting": {
+        "name": "Potenza esportata"
+      },
+      "energy_exporting_today": {
+        "name": "Energia esportata oggi"
+      },
+      "energy_exporting_total": {
+        "name": "Totale energia esportata"
+      },
+      "battery_soc": {
+        "name": "Batteria"
+      },
+      "battery_soc_2": {
+        "name": "Batteria 2"
+      },
+      "temperature": {
+        "name": "Temperatura inverter"
+      },
+      "dc_current": {
+        "name": "Corrente DC"
+      },
+      "dc_voltage": {
+        "name": "Voltaggio DC"
+      },
+      "dc_power": {
+        "name": "Potenza DC"
+      }
+    }
+  }
 }

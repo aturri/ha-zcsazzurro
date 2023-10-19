@@ -11,7 +11,14 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
-from homeassistant.const import PERCENTAGE, UnitOfEnergy, UnitOfPower
+from homeassistant.const import (
+    PERCENTAGE,
+    UnitOfElectricCurrent,
+    UnitOfElectricPotential,
+    UnitOfEnergy,
+    UnitOfPower,
+    UnitOfTemperature,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -326,6 +333,50 @@ SENSOR_TYPES: Final[tuple[ZCSSensorDefinition, ...]] = (
             native_unit_of_measurement=PERCENTAGE,
             state_class=SensorStateClass.MEASUREMENT,
             entity_registry_enabled_default=False,
+        ),
+    ),
+    ZCSSensorDefinition(
+        description=ZCSSensorDescription(
+            key="temperature",
+            data_tag="temperature",
+            device_class=SensorDeviceClass.TEMPERATURE,
+            translation_key="temperature",
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+            state_class=SensorStateClass.MEASUREMENT,
+            icon="mdi:thermometer",
+        ),
+    ),
+    ZCSSensorDefinition(
+        description=ZCSSensorDescription(
+            key="dc_current",
+            data_tag="currentDC",
+            device_class=SensorDeviceClass.CURRENT,
+            translation_key="dc_current",
+            native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+            state_class=SensorStateClass.MEASUREMENT,
+            icon="mdi:current-dc",
+        ),
+    ),
+    ZCSSensorDefinition(
+        description=ZCSSensorDescription(
+            key="dc_voltage",
+            data_tag="voltageDC",
+            device_class=SensorDeviceClass.VOLTAGE,
+            translation_key="dc_voltage",
+            native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+            state_class=SensorStateClass.MEASUREMENT,
+            icon="mdi:flash-triangle",
+        ),
+    ),
+    ZCSSensorDefinition(
+        description=ZCSSensorDescription(
+            key="dc_power",
+            data_tag="powerDC",
+            device_class=SensorDeviceClass.POWER,
+            translation_key="dc_power",
+            native_unit_of_measurement=UnitOfPower.WATT,
+            state_class=SensorStateClass.MEASUREMENT,
+            icon="mdi:solar-power-variant-outline",
         ),
     ),
 )
