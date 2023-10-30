@@ -37,7 +37,7 @@
         "name": "Generating power"
       },
       "energy_generating_today": {
-        "name": "Today genrated energy"
+        "name": "Today generated energy"
       },
       "energy_generating_total": {
         "name": "Total generated energy"
