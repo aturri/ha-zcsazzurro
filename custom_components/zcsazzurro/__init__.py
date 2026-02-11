@@ -4,7 +4,7 @@ from __future__ import annotations
 from datetime import timedelta
 import logging
 
-import flatdict
+from . import flatdict_fix as flatdict
 import voluptuous as vol
 
 from homeassistant.components import persistent_notification
