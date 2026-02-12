@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.2
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,7 +32,7 @@ jobs:
           cd ${{ github.workspace }}/custom_components/zcsazzurro
           zip zcsazzurro.zip -r ./
       - name: Upload zip to release
-        uses: svenstaro/upload-release-action@2.7.0
+        uses: svenstaro/upload-release-action@2.9.0
 
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}

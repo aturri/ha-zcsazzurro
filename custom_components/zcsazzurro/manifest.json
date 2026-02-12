@@ -16,9 +16,7 @@
   "loggers": [
     "pyzcsazzurro"
   ],
-  "requirements": [
-    "flatdict==4.0.1"
-  ],
+  "requirements": [],
   "ssdp": [],
   "version": "0.1.0",
   "zeroconf": []

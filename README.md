@@ -1,5 +1,8 @@
 [![ZCS Azzurro](https://img.shields.io/github/v/release/aturri/ha-zcsazzurro)](https://github.com/aturri/ha-zcsazzurro/releases/latest) [![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg)](https://github.com/hacs/integration) ![Validate with hassfest](https://github.com/aturri/ha-zcsazzurro/workflows/Validate%20with%20hassfest/badge.svg) ![Maintenance](https://img.shields.io/maintenance/yes/2023.svg) [![ZCSAzzurro_downloads](https://img.shields.io/github/downloads/aturri/ha-zcsazzurro/total)](https://github.com/aturri/ha-zcsazzurro) [![ZCSAzzurro_downloads](https://img.shields.io/github/downloads/aturri/ha-zcsazzurro/latest/total)](https://github.com/aturri/ha-zcsazzurro)
 
+# Note
+This integration is not maintained any more by me, because I'm today on other projects and I no longer own ZCS Azzurro devices. I'm available to review any pull request from community and release new versions, based on your contributions.
+
 # ZCS Azzurro Integration for Home Assistant
 
 All supported ZCS Azzurro inverters / energy meters will show a status sensor and sensors represnting generating power/energy. According to device types and installation, there are some other sensors representing the power/energy consuming, auto-consuming, charging, discharging, importing, exporting, as well as batteries charge status. Note that these sensors are disabled by default, they need to be manually enabled on device page.
